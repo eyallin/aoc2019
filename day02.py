@@ -36,3 +36,23 @@ if __name__ == "__main__":
     program[2] = 2
     run_program(program)
     print(f'The value at position 0 is {program[0]}')
+
+
+def determine_values(initial_program, required_result):
+    for noun in range(100):
+        for verb in range(100):
+            program = initial_program[:]
+            program[1] = noun
+            program[2] = verb
+            result = run_program(program)
+            if result == required_result:
+                return noun, verb
+    else:
+        raise Exception('Could not find noun and verb')
+
+
+if __name__ == "__main__":
+    with open('day02_input.txt') as f:
+        initial_program = [int(a) for a in f.read().split(',')]
+    noun, verb = determine_values(initial_program, 19690720)
+    print(f'Noun and verb are {noun} and {verb} ({100 * noun + verb})')
